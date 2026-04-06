@@ -1,0 +1,17 @@
+# --- 忽略 Keil 编译产物 ---
+Objects/
+Listings/
+DebugConfig/
+
+# --- 忽略个人配置文件 ---
+*.uvguix.*
+*.bak
+*.dep
+
+# --- 忽略 VS Code 相关 ---
+.vscode/
+*.code-workspace
+
+# --- 忽略可能的系统残留 ---
+.DS_Store
+Thumbs.db
