@@ -735,6 +735,26 @@
               <FileType>5</FileType>
               <FilePath>.\hardware\menu.h</FilePath>
             </File>
+            <File>
+              <FileName>MenuIP.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\hardware\MenuIP.c</FilePath>
+            </File>
+            <File>
+              <FileName>MenuIP.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\hardware\MenuIP.h</FilePath>
+            </File>
+            <File>
+              <FileName>MenuData.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\hardware\MenuData.c</FilePath>
+            </File>
+            <File>
+              <FileName>MenuData.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\hardware\MenuData.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
