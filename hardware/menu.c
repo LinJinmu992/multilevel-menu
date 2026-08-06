@@ -116,11 +116,13 @@ MenuItemType ItemType;
 //Operate为0时，无操作；Operate为1时，执行加一操作；Operate为2时，执行减一操作；Operate为3时，执行确认操作，按键通过外部中断函数调用这个函数  
 		switch (Operate) {
         case 1: // 加1操作
+            /* 从页面表获取实际项目数量，再执行循环向下移动 */
             ItemCount = MenuData_GetItemCount(IP);
             IP = MenuIP_MoveNext(IP, ItemCount);
             break;
             
         case 2: // 减1操作
+            /* 从页面表获取实际项目数量，再执行循环向上移动 */
             ItemCount = MenuData_GetItemCount(IP);
             IP = MenuIP_MovePrevious(IP, ItemCount);
             break;
@@ -128,19 +130,23 @@ MenuItemType ItemType;
         case 3: // 确认操作
 			if(Comfirm_Status)	//这里变量的用途会在特殊功能区说明
 						{
+							/* 由菜单说明表决定当前项目按下确认后的行为 */
 							ItemType = MenuData_GetCurrentItemType(IP);
 							switch (ItemType)
 							{
 								case MENU_ITEM_SUBMENU:
 								case MENU_ITEM_VALUE:
+									/* 普通子菜单和参数项都需要进入下一级 */
 									IP = MenuIP_Enter(IP);
 									break;
 
 								case MENU_ITEM_BACK:
+									/* 返回项清除当前最深一级菜单路径 */
 									IP = MenuIP_Back(IP);
 									break;
 
 								case MENU_ITEM_ACTION:
+									/* 功能项预留给后续功能回调，当前不改变IP */
 								case MENU_ITEM_NONE:
 								default:
 									break;
