@@ -17,4 +17,4 @@ DebugConfig/
 Thumbs.db
 
 # --- Ignore CMake build artifacts ---
-build/
+platforms/*/build/
