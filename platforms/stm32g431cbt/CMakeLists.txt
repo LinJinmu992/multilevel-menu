@@ -48,11 +48,13 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     ../../app/Src/MenuData.c
     ../../app/Src/menu.c
     Core/Src/menu_port.c
+    App/OLED.c
 )
 
 # Add include paths
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
     ../../app/Inc
+    App
 )
 
 # Add project symbols (macros)

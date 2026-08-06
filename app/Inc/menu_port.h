@@ -4,6 +4,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
+void MenuPort_Init(void);
 void MenuPort_Clear(void);
 void MenuPort_ShowChar(uint8_t line, uint8_t column, char value);
 void MenuPort_ShowString(uint8_t line, uint8_t column, const char *value);
