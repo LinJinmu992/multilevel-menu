@@ -2,57 +2,34 @@
 #include "OLED_Font.h"
 
 /*引脚配置*/
-#define OLED_W_SCL(x) HAL_GPIO_WritePin(GPIOB, GPIO_PIN_8, (x) ? GPIO_PIN_SET : GPIO_PIN_RESET)
-#define OLED_W_SDA(x) HAL_GPIO_WritePin(GPIOB, GPIO_PIN_9, (x) ? GPIO_PIN_SET : GPIO_PIN_RESET)
+#define OLED_W_SCL(x) HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9,  (x) ? GPIO_PIN_SET : GPIO_PIN_RESET)
+#define OLED_W_SDI(x) HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8,  (x) ? GPIO_PIN_SET : GPIO_PIN_RESET)
+#define OLED_W_DC(x)  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, (x) ? GPIO_PIN_SET : GPIO_PIN_RESET)
+#define OLED_W_CS(x)  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, (x) ? GPIO_PIN_SET : GPIO_PIN_RESET)
 
 /*引脚初始化*/
-void OLED_I2C_Init(void)
+static void OLED_SPI_Init(void)
 {
-	OLED_W_SCL(1);
-	OLED_W_SDA(1);
-}
-
-/**
-  * @brief  I2C开始
-  * @param  无
-  * @retval 无
-  */
-void OLED_I2C_Start(void)
-{
-	OLED_W_SDA(1);
-	OLED_W_SCL(1);
-	OLED_W_SDA(0);
+	OLED_W_CS(1);
 	OLED_W_SCL(0);
+	OLED_W_SDI(0);
+	OLED_W_DC(0);
 }
 
 /**
-  * @brief  I2C停止
-  * @param  无
-  * @retval 无
-  */
-void OLED_I2C_Stop(void)
-{
-	OLED_W_SDA(0);
-	OLED_W_SCL(1);
-	OLED_W_SDA(1);
-}
-
-/**
-  * @brief  I2C发送一个字节
+  * @brief  软件SPI发送一个字节（Mode 0，MSB先发）
   * @param  Byte 要发送的一个字节
   * @retval 无
   */
-void OLED_I2C_SendByte(uint8_t Byte)
+static void OLED_SPI_SendByte(uint8_t Byte)
 {
 	uint8_t i;
 	for (i = 0; i < 8; i++)
 	{
-		OLED_W_SDA(!!(Byte & (0x80 >> i)));
+		OLED_W_SDI(!!(Byte & (0x80 >> i)));
 		OLED_W_SCL(1);
 		OLED_W_SCL(0);
 	}
-	OLED_W_SCL(1);	//额外的一个时钟，不处理应答信号
-	OLED_W_SCL(0);
 }
 
 /**
@@ -62,11 +39,10 @@ void OLED_I2C_SendByte(uint8_t Byte)
   */
 void OLED_WriteCommand(uint8_t Command)
 {
-	OLED_I2C_Start();
-	OLED_I2C_SendByte(0x78);		//从机地址
-	OLED_I2C_SendByte(0x00);		//写命令
-	OLED_I2C_SendByte(Command); 
-	OLED_I2C_Stop();
+	OLED_W_DC(0);
+	OLED_W_CS(0);
+	OLED_SPI_SendByte(Command);
+	OLED_W_CS(1);
 }
 
 /**
@@ -76,11 +52,10 @@ void OLED_WriteCommand(uint8_t Command)
   */
 void OLED_WriteData(uint8_t Data)
 {
-	OLED_I2C_Start();
-	OLED_I2C_SendByte(0x78);		//从机地址
-	OLED_I2C_SendByte(0x40);		//写数据
-	OLED_I2C_SendByte(Data);
-	OLED_I2C_Stop();
+	OLED_W_DC(1);
+	OLED_W_CS(0);
+	OLED_SPI_SendByte(Data);
+	OLED_W_CS(1);
 }
 
 /**
@@ -262,7 +237,7 @@ void OLED_Init(void)
 {
 	HAL_Delay(100);
 	
-	OLED_I2C_Init();			//端口初始化
+	OLED_SPI_Init();			//端口初始化
 	
 	OLED_WriteCommand(0xAE);	//关闭显示
 	

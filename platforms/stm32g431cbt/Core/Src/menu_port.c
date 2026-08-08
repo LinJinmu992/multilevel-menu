@@ -9,11 +9,16 @@ void MenuPort_Init(void)
     __HAL_RCC_GPIOB_CLK_ENABLE();
 
     gpio.Pin = GPIO_PIN_8 | GPIO_PIN_9;
-    gpio.Mode = GPIO_MODE_OUTPUT_OD;
+    gpio.Mode = GPIO_MODE_OUTPUT_PP;
     gpio.Pull = GPIO_NOPULL;
-    gpio.Speed = GPIO_SPEED_FREQ_HIGH;
+    gpio.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+    HAL_GPIO_Init(GPIOA, &gpio);
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8 | GPIO_PIN_9, GPIO_PIN_RESET);
+
+    gpio.Pin = GPIO_PIN_12 | GPIO_PIN_13;
     HAL_GPIO_Init(GPIOB, &gpio);
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_8 | GPIO_PIN_9, GPIO_PIN_SET);
+    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_SET);
+    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
 
     gpio.Pin = GPIO_PIN_0 | GPIO_PIN_4 | GPIO_PIN_6;
     gpio.Mode = GPIO_MODE_INPUT;

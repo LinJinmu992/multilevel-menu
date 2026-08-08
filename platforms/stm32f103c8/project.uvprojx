@@ -731,6 +731,16 @@
               <FilePath>..\..\app\Src\menu.c</FilePath>
             </File>
             <File>
+              <FileName>menu_view.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\app\Src\menu_view.c</FilePath>
+            </File>
+            <File>
+              <FileName>menu_view.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\app\Inc\menu_view.h</FilePath>
+            </File>
+            <File>
               <FileName>menu_port.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\hardware\menu_port.c</FilePath>
