@@ -15,3 +15,6 @@ DebugConfig/
 # --- 忽略可能的系统残留 ---
 .DS_Store
 Thumbs.db
+
+# --- Ignore CMake build artifacts ---
+platforms/*/build/

@@ -336,7 +336,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>.\start;.\Library;.\user;.\System;.\hardware</IncludePath>
+              <IncludePath>.\start;.\Library;.\user;.\System;.\hardware;..\..\app\Inc</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -728,12 +728,47 @@
             <File>
               <FileName>menu.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\hardware\menu.c</FilePath>
+              <FilePath>..\..\app\Src\menu.c</FilePath>
+            </File>
+            <File>
+              <FileName>menu_view.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\app\Src\menu_view.c</FilePath>
+            </File>
+            <File>
+              <FileName>menu_view.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\app\Inc\menu_view.h</FilePath>
+            </File>
+            <File>
+              <FileName>menu_port.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\hardware\menu_port.c</FilePath>
             </File>
             <File>
               <FileName>menu.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\hardware\menu.h</FilePath>
+              <FilePath>..\..\app\Inc\menu.h</FilePath>
+            </File>
+            <File>
+              <FileName>MenuIP.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\app\Src\MenuIP.c</FilePath>
+            </File>
+            <File>
+              <FileName>MenuIP.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\app\Inc\MenuIP.h</FilePath>
+            </File>
+            <File>
+              <FileName>MenuData.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\app\Src\MenuData.c</FilePath>
+            </File>
+            <File>
+              <FileName>MenuData.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\app\Inc\MenuData.h</FilePath>
             </File>
           </Files>
         </Group>
