@@ -18,3 +18,13 @@ Thumbs.db
 
 # --- Ignore CMake build artifacts ---
 platforms/*/build/
+
+# --- Ignore local IDE and CubeMX metadata ---
+platforms/*/.clangd
+platforms/*/.settings/
+platforms/*/.gitignore
+
+# --- Ignore local reference and temporary artifacts ---
+/MINI-STM32G431CBV1.0.pdf
+/tmp/
+/AGENTS.md
