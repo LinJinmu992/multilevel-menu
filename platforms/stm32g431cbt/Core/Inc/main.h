@@ -57,6 +57,20 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define KEY_CONFIRM_Pin GPIO_PIN_0
+#define KEY_CONFIRM_GPIO_Port GPIOA
+#define KEY_NEXT_Pin GPIO_PIN_4
+#define KEY_NEXT_GPIO_Port GPIOA
+#define KEY_PREVIOUS_Pin GPIO_PIN_6
+#define KEY_PREVIOUS_GPIO_Port GPIOA
+#define OLED_CS_Pin GPIO_PIN_12
+#define OLED_CS_GPIO_Port GPIOB
+#define OLED_DC_Pin GPIO_PIN_13
+#define OLED_DC_GPIO_Port GPIOB
+#define OLED_SDI_Pin GPIO_PIN_8
+#define OLED_SDI_GPIO_Port GPIOA
+#define OLED_SCL_Pin GPIO_PIN_9
+#define OLED_SCL_GPIO_Port GPIOA
 
 /* USER CODE BEGIN Private defines */
 

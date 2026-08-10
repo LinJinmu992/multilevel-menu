@@ -53,7 +53,7 @@ void EXTI0_IRQHandler(void)
 		
 		if(GPIO_ReadInputDataBit(GPIOA, GPIO_Pin_0) == 0)
 		{
-			Menu_Info(3);
+			Menu_HandleEvent(MENU_EVENT_CONFIRM);
 		}
 	
 		EXTI_ClearITPendingBit(EXTI_Line0);
@@ -69,7 +69,7 @@ void EXTI4_IRQHandler(void)
 		
 		if(GPIO_ReadInputDataBit(GPIOA, GPIO_Pin_4) == 0)
 		{
-			Menu_Info(1);
+			Menu_HandleEvent(MENU_EVENT_NEXT);
 		}
 		
 		EXTI_ClearITPendingBit(EXTI_Line4);
@@ -84,7 +84,7 @@ void EXTI9_5_IRQHandler(void)
 		
 		if(GPIO_ReadInputDataBit(GPIOA, GPIO_Pin_6) == 0)
 		{
-			Menu_Info(2);
+			Menu_HandleEvent(MENU_EVENT_PREVIOUS);
 		}
 		
 		EXTI_ClearITPendingBit(EXTI_Line6);

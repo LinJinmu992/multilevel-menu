@@ -35,7 +35,7 @@ void TIM2_IRQHandler(void)
 {
 	if (TIM_GetITStatus(TIM2, TIM_IT_Update) == SET)
 	{
-		Menu_Info(0);
+		MenuDisplay();
 		TIM_ClearITPendingBit(TIM2, TIM_IT_Update);
 	}
 }

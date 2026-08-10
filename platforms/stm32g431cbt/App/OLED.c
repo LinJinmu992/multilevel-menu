@@ -2,10 +2,10 @@
 #include "OLED_Font.h"
 
 /*引脚配置*/
-#define OLED_W_SCL(x) HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9,  (x) ? GPIO_PIN_SET : GPIO_PIN_RESET)
-#define OLED_W_SDI(x) HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8,  (x) ? GPIO_PIN_SET : GPIO_PIN_RESET)
-#define OLED_W_DC(x)  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, (x) ? GPIO_PIN_SET : GPIO_PIN_RESET)
-#define OLED_W_CS(x)  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, (x) ? GPIO_PIN_SET : GPIO_PIN_RESET)
+#define OLED_W_SCL(x) HAL_GPIO_WritePin(OLED_SCL_GPIO_Port, OLED_SCL_Pin, (x) ? GPIO_PIN_SET : GPIO_PIN_RESET)
+#define OLED_W_SDI(x) HAL_GPIO_WritePin(OLED_SDI_GPIO_Port, OLED_SDI_Pin, (x) ? GPIO_PIN_SET : GPIO_PIN_RESET)
+#define OLED_W_DC(x)  HAL_GPIO_WritePin(OLED_DC_GPIO_Port, OLED_DC_Pin, (x) ? GPIO_PIN_SET : GPIO_PIN_RESET)
+#define OLED_W_CS(x)  HAL_GPIO_WritePin(OLED_CS_GPIO_Port, OLED_CS_Pin, (x) ? GPIO_PIN_SET : GPIO_PIN_RESET)
 
 /*引脚初始化*/
 static void OLED_SPI_Init(void)
@@ -118,7 +118,7 @@ void OLED_ShowChar(uint8_t Line, uint8_t Column, char Char)
   * @param  String 要显示的字符串，范围：ASCII可见字符
   * @retval 无
   */
-void OLED_ShowString(uint8_t Line, uint8_t Column, char *String)
+void OLED_ShowString(uint8_t Line, uint8_t Column, const char *String)
 {
 	uint8_t i;
 	for (i = 0; String[i] != '\0'; i++)

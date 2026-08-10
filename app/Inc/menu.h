@@ -3,8 +3,15 @@
 
 #include <stdint.h>
 
-void MenuDisplay (void);
+typedef enum
+{
+    MENU_EVENT_NONE = 0,
+    MENU_EVENT_NEXT,
+    MENU_EVENT_PREVIOUS,
+    MENU_EVENT_CONFIRM
+} MenuEvent;
 
-void Menu_Info(uint8_t Operate);
+void MenuDisplay(void);
+void Menu_HandleEvent(MenuEvent event);
 
 #endif
