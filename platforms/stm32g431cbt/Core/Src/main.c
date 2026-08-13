@@ -24,6 +24,7 @@
 /* USER CODE BEGIN Includes */
 #include "menu.h"
 #include "menu_port.h"
+#include "key.h"
 
 /* USER CODE END Includes */
 
@@ -89,7 +90,8 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
-  MenuPort_Init();
+  MenuPort_InitDisplay();
+  Key_Init();
   MenuDisplay();
 
   /* USER CODE END 2 */
@@ -98,19 +100,13 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    static GPIO_PinState last_ok = GPIO_PIN_SET;
-    static GPIO_PinState last_next = GPIO_PIN_SET;
-    static GPIO_PinState last_previous = GPIO_PIN_SET;
-    GPIO_PinState ok = HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0);
-    GPIO_PinState next = HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4);
-    GPIO_PinState previous = HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_6);
+    MenuEvent event = Key_Scan();
 
-    if ((last_next == GPIO_PIN_SET) && (next == GPIO_PIN_RESET)) Menu_Info(1);
-    if ((last_previous == GPIO_PIN_SET) && (previous == GPIO_PIN_RESET)) Menu_Info(2);
-    if ((last_ok == GPIO_PIN_SET) && (ok == GPIO_PIN_RESET)) Menu_Info(3);
-    last_ok = ok;
-    last_next = next;
-    last_previous = previous;
+    if (event != MENU_EVENT_NONE)
+    {
+      Menu_HandleEvent(event);
+    }
+
     HAL_Delay(20);
     /* USER CODE END WHILE */
 

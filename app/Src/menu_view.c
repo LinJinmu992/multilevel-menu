@@ -1,62 +1,50 @@
 #include "menu_view.h"
+#include "MenuData.h"
 #include "menu_port.h"
 
-static void ShowValuePage(char name, uint16_t value)
-{
-    MenuPort_ShowChar(1, 2, name);
-    MenuPort_ShowNum(1, 15, value, 2);
-    MenuPort_ShowString(2, 2, "+");
-    MenuPort_ShowString(3, 2, "-");
-    MenuPort_ShowString(4, 2, "Confirm");
-}
+/* Private function declarations ------------------------------------------- */
+
+static void ShowPageItems(MenuIP ip);
+
+/* Public function implementations ----------------------------------------- */
 
 void MenuView_Render(MenuIP ip, uint16_t p, uint16_t i, uint16_t d)
 {
     uint8_t depth = MenuIP_GetDepth(ip);
-    uint8_t item;
+    uint8_t page_item;
 
     MenuPort_Clear();
-    MenuPort_ShowChar(MenuIP_GetCursor(ip), 1, '>');
+    MenuPort_ShowChar(MenuIP_GetCursor(ip), 1U, '>');
+    ShowPageItems(ip);
 
-    if (depth == 0)
+    if ((depth == 1U) && (MenuIP_GetItem(ip, 1U) == 3U))
     {
-        MenuPort_ShowString(1, 2, "adc");
-        MenuPort_ShowString(2, 2, "error");
-        MenuPort_ShowString(3, 2, "pid");
-        MenuPort_ShowString(4, 2, "Ciallo!");
-        return;
+        MenuPort_ShowNum(1U, 15U, p, 2U);
+        MenuPort_ShowNum(2U, 15U, i, 2U);
+        MenuPort_ShowNum(3U, 15U, d, 2U);
     }
-
-    if (depth == 1)
+    else if ((depth == 2U) && (MenuIP_GetItem(ip, 1U) == 3U))
     {
-        item = MenuIP_GetItem(ip, 1);
-        if (item == 1)
-        {
-            MenuPort_ShowString(1, 2, "adc1");
-            MenuPort_ShowString(2, 2, "adc2");
-            MenuPort_ShowString(3, 2, "adc3");
-        }
-        else if (item == 2)
-        {
-            MenuPort_ShowString(1, 2, "error1");
-            MenuPort_ShowString(2, 2, "error2");
-            MenuPort_ShowString(3, 2, "error3");
-        }
-        else if (item == 3)
-        {
-            MenuPort_ShowChar(1, 2, 'P'); MenuPort_ShowNum(1, 15, p, 2);
-            MenuPort_ShowChar(2, 2, 'I'); MenuPort_ShowNum(2, 15, i, 2);
-            MenuPort_ShowChar(3, 2, 'D'); MenuPort_ShowNum(3, 15, d, 2);
-        }
-        MenuPort_ShowString(4, 2, "exit");
-        return;
+        page_item = MenuIP_GetItem(ip, 2U);
+        if (page_item == 1U) MenuPort_ShowNum(1U, 15U, p, 2U);
+        else if (page_item == 2U) MenuPort_ShowNum(1U, 15U, i, 2U);
+        else if (page_item == 3U) MenuPort_ShowNum(1U, 15U, d, 2U);
     }
+}
 
-    if (depth == 2)
+/* Private function implementations ---------------------------------------- */
+
+static void ShowPageItems(MenuIP ip)
+{
+    uint8_t item;
+    uint8_t item_count = MenuData_GetItemCount(ip);
+
+    for (item = 1U; item <= item_count; item++)
     {
-        item = MenuIP_GetItem(ip, 2);
-        if (item == 1) ShowValuePage('P', p);
-        else if (item == 2) ShowValuePage('I', i);
-        else if (item == 3) ShowValuePage('D', d);
+        const char *label = MenuData_GetItemLabel(ip, item);
+        if (label != 0)
+        {
+            MenuPort_ShowString(item, 2U, label);
+        }
     }
 }

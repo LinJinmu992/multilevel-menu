@@ -11,5 +11,11 @@ One menu implementation with two STM32 platform projects.
 The shared application calls `menu_port.h`. Each platform supplies its own
 `menu_port.c`; application code must not include STM32, HAL, LL, or SPL headers.
 
-The G431 port currently contains no-op display and key bindings until the board
-OLED and key pins are configured in `stm32g431cbt.ioc`.
+The G431 port includes a working GPIO-driven OLED adapter and three active-low
+keys for next, previous, and confirm. The keys are sampled every 20 ms and emit
+an event after two consecutive samples confirm a state change. Pin assignments
+remain configurable in `stm32g431cbt.ioc`.
+
+Project-owned text files use UTF-8. The repository `.editorconfig` records the
+encoding explicitly so Chinese source comments are decoded consistently by
+editors that support EditorConfig.

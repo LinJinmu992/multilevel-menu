@@ -1,6 +1,8 @@
 #include "stm32f10x.h" // Device header
 #include "menu.h"
 
+/* Public function implementations ----------------------------------------- */
+
 void Timer_Init(void)
 {
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM2, ENABLE);
@@ -35,7 +37,7 @@ void TIM2_IRQHandler(void)
 {
 	if (TIM_GetITStatus(TIM2, TIM_IT_Update) == SET)
 	{
-		Menu_Info(0);
+		MenuDisplay();
 		TIM_ClearITPendingBit(TIM2, TIM_IT_Update);
 	}
 }

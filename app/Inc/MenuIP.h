@@ -3,6 +3,7 @@
 
 #include <stdint.h>
 
+/** @brief 以三个 4 位页面编号和一个 4 位光标编号编码菜单位置。 */
 typedef uint16_t MenuIP;
 
 /* IP的四个十六进制位：三级菜单、二级菜单、一级菜单、光标位置 */

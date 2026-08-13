@@ -48,6 +48,7 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     ../../app/Src/MenuData.c
     ../../app/Src/menu.c
     ../../app/Src/menu_view.c
+    Core/Src/key.c
     Core/Src/menu_port.c
     App/OLED.c
 )

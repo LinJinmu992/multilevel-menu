@@ -1,9 +1,13 @@
 #include "stm32f10x.h"
 #include "OLED_Font.h"
 
+/* Private macros ----------------------------------------------------------- */
+
 /*引脚配置*/
 #define OLED_W_SCL(x)		GPIO_WriteBit(GPIOB, GPIO_Pin_8, (BitAction)(x))
 #define OLED_W_SDA(x)		GPIO_WriteBit(GPIOB, GPIO_Pin_9, (BitAction)(x))
+
+/* Public function implementations ----------------------------------------- */
 
 /*引脚初始化*/
 void OLED_I2C_Init(void)
@@ -153,7 +157,7 @@ void OLED_ShowChar(uint8_t Line, uint8_t Column, char Char)
   * @param  String 要显示的字符串，范围：ASCII可见字符
   * @retval 无
   */
-void OLED_ShowString(uint8_t Line, uint8_t Column, char *String)
+void OLED_ShowString(uint8_t Line, uint8_t Column, const char *String)
 {
 	uint8_t i;
 	for (i = 0; String[i] != '\0'; i++)

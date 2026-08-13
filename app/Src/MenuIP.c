@@ -1,16 +1,10 @@
 #include "MenuIP.h"
 
-/* 根据层级取得对应的位掩码，仅供本文件内部调用 */
-static MenuIP MenuIP_GetLevelMask(uint8_t level)
-{
-	switch (level)
-	{
-		case 1: return MENU_IP_LEVEL1_MASK;
-		case 2: return MENU_IP_LEVEL2_MASK;
-		case 3: return MENU_IP_LEVEL3_MASK;
-		default: return 0;
-	}
-}
+/* Private function declarations ------------------------------------------- */
+
+static MenuIP MenuIP_GetLevelMask(uint8_t level);
+
+/* Public function implementations ----------------------------------------- */
 
 uint8_t MenuIP_GetCursor(MenuIP ip)
 {
@@ -80,4 +74,18 @@ MenuIP MenuIP_Make(uint8_t level1, uint8_t level2,
 		((MenuIP)(level3 & 0x0F) << 12) |
 		(MenuIP)(cursor & 0x0F)
 	);
+}
+
+/* Private function implementations ---------------------------------------- */
+
+/* 根据层级取得对应的位掩码，仅供本文件内部调用 */
+static MenuIP MenuIP_GetLevelMask(uint8_t level)
+{
+	switch (level)
+	{
+		case 1: return MENU_IP_LEVEL1_MASK;
+		case 2: return MENU_IP_LEVEL2_MASK;
+		case 3: return MENU_IP_LEVEL3_MASK;
+		default: return 0;
+	}
 }
