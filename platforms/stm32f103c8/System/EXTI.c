@@ -2,6 +2,8 @@
 #include "menu.h"
 #include "Delay.h"
 
+/* Public function implementations ----------------------------------------- */
+
 void KeyEXTI_Init(void)
 {
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);

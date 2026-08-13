@@ -2,20 +2,11 @@
 #include "MenuData.h"
 #include "menu_port.h"
 
-static void ShowPageItems(MenuIP ip)
-{
-    uint8_t item;
-    uint8_t item_count = MenuData_GetItemCount(ip);
+/* Private function declarations ------------------------------------------- */
 
-    for (item = 1U; item <= item_count; item++)
-    {
-        const char *label = MenuData_GetItemLabel(ip, item);
-        if (label != 0)
-        {
-            MenuPort_ShowString(item, 2U, label);
-        }
-    }
-}
+static void ShowPageItems(MenuIP ip);
+
+/* Public function implementations ----------------------------------------- */
 
 void MenuView_Render(MenuIP ip, uint16_t p, uint16_t i, uint16_t d)
 {
@@ -38,5 +29,22 @@ void MenuView_Render(MenuIP ip, uint16_t p, uint16_t i, uint16_t d)
         if (page_item == 1U) MenuPort_ShowNum(1U, 15U, p, 2U);
         else if (page_item == 2U) MenuPort_ShowNum(1U, 15U, i, 2U);
         else if (page_item == 3U) MenuPort_ShowNum(1U, 15U, d, 2U);
+    }
+}
+
+/* Private function implementations ---------------------------------------- */
+
+static void ShowPageItems(MenuIP ip)
+{
+    uint8_t item;
+    uint8_t item_count = MenuData_GetItemCount(ip);
+
+    for (item = 1U; item <= item_count; item++)
+    {
+        const char *label = MenuData_GetItemLabel(ip, item);
+        if (label != 0)
+        {
+            MenuPort_ShowString(item, 2U, label);
+        }
     }
 }

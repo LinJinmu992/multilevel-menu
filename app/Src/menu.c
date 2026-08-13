@@ -3,22 +3,22 @@
 #include "MenuIP.h"
 #include "menu_view.h"
 
+/* Private variables -------------------------------------------------------- */
+
 static MenuIP IP = MENU_IP_ROOT;
 static uint16_t P_value;
 static uint16_t I_value;
 static uint16_t D_value;
 
+/* Private function declarations ------------------------------------------- */
+
+static uint16_t EditValue(uint16_t value);
+
+/* Public function implementations ----------------------------------------- */
+
 void MenuDisplay(void)
 {
     MenuView_Render(IP, P_value, I_value, D_value);
-}
-
-static uint16_t EditValue(uint16_t value)
-{
-    if (MenuIP_GetCursor(IP) == 2) value++;
-    else if (MenuIP_GetCursor(IP) == 3) value--;
-    else if (MenuIP_GetCursor(IP) == 4) IP = MenuIP_Make(3, 0, 0, 1);
-    return value;
 }
 
 void Menu_HandleEvent(MenuEvent event)
@@ -57,4 +57,14 @@ void Menu_HandleEvent(MenuEvent event)
     }
 
     MenuDisplay();
+}
+
+/* Private function implementations ---------------------------------------- */
+
+static uint16_t EditValue(uint16_t value)
+{
+    if (MenuIP_GetCursor(IP) == 2) value++;
+    else if (MenuIP_GetCursor(IP) == 3) value--;
+    else if (MenuIP_GetCursor(IP) == 4) IP = MenuIP_Make(3, 0, 0, 1);
+    return value;
 }

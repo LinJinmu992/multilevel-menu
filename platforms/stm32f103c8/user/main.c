@@ -5,6 +5,8 @@
 #include "EXTI.h"
 #include "TIM.h"
 
+/* Public function implementations ----------------------------------------- */
+
 int main(void)
 {
 	OLED_Init();

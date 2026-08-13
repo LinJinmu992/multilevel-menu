@@ -1,5 +1,7 @@
 #include "stm32f10x.h"                  // Device header
 
+/* Public function implementations ----------------------------------------- */
+
 uint16_t GetValue (uint16_t Value)
 {
 	if(((IP & MaskL) == 0x0002) && (GPIO_ReadInputDataBit(GPIOA, GPIO_Pin_0) == 0))

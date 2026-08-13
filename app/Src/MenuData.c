@@ -1,6 +1,10 @@
 #include "MenuData.h"
 
+/* Private macros ----------------------------------------------------------- */
+
 #define MENU_PAGE_MAX_ITEMS 4U
+
+/* Private types ------------------------------------------------------------ */
 
 typedef struct
 {
@@ -14,6 +18,8 @@ typedef struct
     uint8_t item_count;
     MenuItemDefinition items[MENU_PAGE_MAX_ITEMS];
 } MenuPageDefinition;
+
+/* Private variables -------------------------------------------------------- */
 
 static const MenuPageDefinition MenuPages[] =
 {
@@ -51,22 +57,11 @@ static const MenuPageDefinition MenuPages[] =
                  {"Confirm", MENU_ITEM_BACK}}}
 };
 
-static const MenuPageDefinition *MenuData_FindPage(MenuIP ip)
-{
-    MenuIP path = (MenuIP)(ip & ~MENU_IP_CURSOR_MASK);
-    uint8_t page_count = (uint8_t)(sizeof(MenuPages) / sizeof(MenuPages[0]));
-    uint8_t page;
+/* Private function declarations ------------------------------------------- */
 
-    for (page = 0; page < page_count; page++)
-    {
-        if (MenuPages[page].path == path)
-        {
-            return &MenuPages[page];
-        }
-    }
+static const MenuPageDefinition *MenuData_FindPage(MenuIP ip);
 
-    return 0;
-}
+/* Public function implementations ----------------------------------------- */
 
 uint8_t MenuData_GetItemCount(MenuIP ip)
 {
@@ -103,4 +98,23 @@ MenuItemType MenuData_GetCurrentItemType(MenuIP ip)
     }
 
     return page->items[cursor - 1U].type;
+}
+
+/* Private function implementations ---------------------------------------- */
+
+static const MenuPageDefinition *MenuData_FindPage(MenuIP ip)
+{
+    MenuIP path = (MenuIP)(ip & ~MENU_IP_CURSOR_MASK);
+    uint8_t page_count = (uint8_t)(sizeof(MenuPages) / sizeof(MenuPages[0]));
+    uint8_t page;
+
+    for (page = 0; page < page_count; page++)
+    {
+        if (MenuPages[page].path == path)
+        {
+            return &MenuPages[page];
+        }
+    }
+
+    return 0;
 }
