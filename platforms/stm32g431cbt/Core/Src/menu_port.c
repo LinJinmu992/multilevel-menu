@@ -2,6 +2,8 @@
 #include "main.h"
 #include "OLED.h"
 
+/* Public function implementations ----------------------------------------- */
+
 void MenuPort_InitDisplay(void)
 {
     OLED_Init();

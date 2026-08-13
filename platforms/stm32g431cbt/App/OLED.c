@@ -1,36 +1,20 @@
 #include "main.h"
 #include "OLED_Font.h"
 
+/* Private macros ----------------------------------------------------------- */
+
 /*引脚配置*/
 #define OLED_W_SCL(x) HAL_GPIO_WritePin(OLED_SCL_GPIO_Port, OLED_SCL_Pin, (x) ? GPIO_PIN_SET : GPIO_PIN_RESET)
 #define OLED_W_SDI(x) HAL_GPIO_WritePin(OLED_SDI_GPIO_Port, OLED_SDI_Pin, (x) ? GPIO_PIN_SET : GPIO_PIN_RESET)
 #define OLED_W_DC(x)  HAL_GPIO_WritePin(OLED_DC_GPIO_Port, OLED_DC_Pin, (x) ? GPIO_PIN_SET : GPIO_PIN_RESET)
 #define OLED_W_CS(x)  HAL_GPIO_WritePin(OLED_CS_GPIO_Port, OLED_CS_Pin, (x) ? GPIO_PIN_SET : GPIO_PIN_RESET)
 
-/*引脚初始化*/
-static void OLED_SPI_Init(void)
-{
-	OLED_W_CS(1);
-	OLED_W_SCL(0);
-	OLED_W_SDI(0);
-	OLED_W_DC(0);
-}
+/* Private function declarations ------------------------------------------- */
 
-/**
-  * @brief  软件SPI发送一个字节（Mode 0，MSB先发）
-  * @param  Byte 要发送的一个字节
-  * @retval 无
-  */
-static void OLED_SPI_SendByte(uint8_t Byte)
-{
-	uint8_t i;
-	for (i = 0; i < 8; i++)
-	{
-		OLED_W_SDI(!!(Byte & (0x80 >> i)));
-		OLED_W_SCL(1);
-		OLED_W_SCL(0);
-	}
-}
+static void OLED_SPI_Init(void);
+static void OLED_SPI_SendByte(uint8_t Byte);
+
+/* Public function implementations ----------------------------------------- */
 
 /**
   * @brief  OLED写命令
@@ -278,4 +262,31 @@ void OLED_Init(void)
 	OLED_WriteCommand(0xAF);	//开启显示
 		
 	OLED_Clear();				//OLED清屏
+}
+
+/* Private function implementations ---------------------------------------- */
+
+/*引脚初始化*/
+static void OLED_SPI_Init(void)
+{
+	OLED_W_CS(1);
+	OLED_W_SCL(0);
+	OLED_W_SDI(0);
+	OLED_W_DC(0);
+}
+
+/**
+  * @brief  软件SPI发送一个字节（Mode 0，MSB先发）
+  * @param  Byte 要发送的一个字节
+  * @retval 无
+  */
+static void OLED_SPI_SendByte(uint8_t Byte)
+{
+	uint8_t i;
+	for (i = 0; i < 8; i++)
+	{
+		OLED_W_SDI(!!(Byte & (0x80 >> i)));
+		OLED_W_SCL(1);
+		OLED_W_SCL(0);
+	}
 }
